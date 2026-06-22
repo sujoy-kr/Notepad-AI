@@ -2,7 +2,7 @@
 
 A local, privacy-focused smart notepad featuring next-word autocomplete and a document assistant chat panel. The application operates entirely offline, using local Ollama services for AI completions, making it fast, secure, and resource-efficient.
 
-![Notepad AI Screenshot](docs/application-screenshot.png)
+![Notepad AI Screenshot](docs/app-screenshot.png)
 
 ## Core Features
 
