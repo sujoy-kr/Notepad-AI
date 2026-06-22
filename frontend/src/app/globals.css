@@ -1,0 +1,398 @@
+:root {
+  --bg-canvas: #0a0b0d;
+  --bg-primary: #111317;
+  --bg-secondary: #181b21;
+  --bg-tertiary: #22262e;
+  
+  --border-color: #1e2229;
+  --border-hover: #2b303a;
+  --border-focus: #f59e0b;
+  
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+  
+  --accent-color: #f59e0b;
+  --accent-hover: #d97706;
+  --accent-light: rgba(245, 158, 11, 0.06);
+  --accent-glow: rgba(245, 158, 11, 0.1);
+  
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+  
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+::selection {
+  background-color: var(--accent-light);
+  color: var(--text-primary);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* High-Density Layout Grid */
+.app-container {
+  display: grid;
+  grid-template-columns: 280px 1fr 380px;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  padding: 10px;
+  gap: 10px;
+  background-color: var(--bg-canvas);
+}
+
+.app-container.chat-collapsed {
+  grid-template-columns: 280px 1fr;
+}
+
+/* Crisp Matte Panel Cards */
+.panel-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: none; /* Zero rounded gradients/glows */
+}
+
+/* Flat Developer Buttons */
+.tactile-button {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  box-shadow: none;
+}
+
+.tactile-button:hover:not(:disabled) {
+  background: var(--bg-tertiary);
+  border-color: var(--border-hover);
+}
+
+.tactile-button:active:not(:disabled) {
+  background: var(--bg-primary);
+}
+
+.tactile-button-primary {
+  background: var(--accent-color);
+  border: 1px solid var(--accent-hover);
+  color: #000000;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.tactile-button-primary:hover:not(:disabled) {
+  background: #fbbf24;
+  border-color: var(--accent-color);
+}
+
+.tactile-button-primary:active:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+/* Clean Monospace KBD Badges */
+.kbd-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 1px 4px;
+  min-width: 14px;
+  height: 14px;
+}
+
+/* Monospace Sidebar Items (Developer-Journal Aesthetic) */
+.note-item {
+  padding: 8px 10px;
+  border-radius: 3px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.12s, border-color 0.12s;
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: var(--font-sans);
+}
+
+.note-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.note-item.active {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.note-item:hover .delete-btn {
+  opacity: 0.7;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s, color 0.12s;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  color: var(--error-color) !important;
+}
+
+.delete-btn.active {
+  opacity: 0.4;
+}
+
+/* Note Title Input (Nordic style) */
+.note-title-input {
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  outline: none;
+  width: 70%;
+  padding: 4px 6px;
+  border-radius: 3px;
+}
+
+.note-title-input:focus {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Clean Custom Selects */
+.custom-select {
+  width: 100%;
+  padding: 6px 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 4px;
+  font-size: 11px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.12s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 10px;
+  padding-right: 28px;
+  font-family: var(--font-mono);
+}
+
+.custom-select:focus {
+  border-color: var(--border-focus);
+}
+
+/* Developer Sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--border-color);
+  outline: none;
+  margin: 8px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-color);
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #fbbf24;
+}
+
+/* Flat, Border-Aligned Chat bubbles */
+.chat-bubble {
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  border-radius: 2px;
+}
+
+.chat-bubble-user {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-right: 2px solid var(--accent-color); /* Elegant thin accent indicator */
+  color: var(--text-primary);
+  align-self: flex-end;
+}
+
+.chat-bubble-assistant {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  align-self: flex-start;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.12s ease-out forwards;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.animate-pulse {
+  animation: pulse 1.4s infinite ease-in-out;
+}
+
+/* Clean Custom Input */
+.custom-input {
+  width: 100%;
+  padding: 6px 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 4px;
+  font-size: 11px;
+  outline: none;
+  transition: border-color 0.12s;
+}
+
+.custom-input:focus {
+  border-color: var(--border-focus);
+}
+
+/* Editor Specific Styles (Monospace density) */
+.editor-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-textarea, .editor-ghost-overlay {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 16px;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  overflow-y: auto;
+  letter-spacing: -0.1px;
+}
+
+.editor-textarea {
+  background: transparent;
+  color: var(--text-primary);
+  caret-color: var(--accent-color);
+  position: relative;
+  z-index: 2;
+}
+
+.editor-ghost-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: transparent;
+  background: transparent;
+  scrollbar-width: none;
+}
+
+.editor-ghost-overlay::-webkit-scrollbar {
+  display: none;
+}
+
+.ghost-text-suggestion {
+  color: var(--text-muted);
+  opacity: 0.7;
+  font-weight: 400;
+}
